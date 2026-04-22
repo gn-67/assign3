@@ -4,3 +4,4 @@
 - props are also passed in { }, we can set it equal to a value 
 - Option + ⌘ + J for console 
 - we can utilize a state to "remember things"
+- a state can be a number, string, array, etc
