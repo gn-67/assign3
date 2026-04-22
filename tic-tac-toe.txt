@@ -10,3 +10,35 @@ Notes:
 - arrow function =  shorter way to define functions. 
 
 Log:
+- Started with a single Square component returning a hardcoded button
+- index.js mounts the root component into index.html via createRoot.
+
+- expanded Square into a Board component with 9 buttons grouped in three rows
+
+- extracted Square back as its own component accepting a value prop
+- Board renders nine instances, passing "1"–"9" to verify prop flow
+
+- Added useState(null) inside Square; onClick called setValue('X')
+- Each square tracks its own state independently
+
+- removed state from Square; moved single squares array (Array(9).fill(null)) into Board via useState.
+- board passes value={squares[i]} and onSquareClick={() => handleClick(i)} down to each Square
+- handleClick(i) uses squares.slice() (immutable copy) then setSquares to avoid direct mutation
+- Added xIsNext boolean state; handleClick alternates 'X'/'O' and guards already-filled squares
+
+- Added calculateWinner(squares) helper: checks all 8 winning lines, returns 'X', 'O', or null.
+- handleClick returns early if calculateWinner finds a winner.
+- Board renders a status div: "Winner: X/O" or "Next player: X/O".
+
+- Introduced top-level Game component; Board became a  child.
+- game holds history  and xIsNext.
+- handlePlay(nextSquares) appends to history and toggles xIsNext
+- Board receives xIsNext, squares, onPlay as props, calls onPlay instead of managing its own state
+
+- game maps over history
+- Added key={move} to silence React's list-key warning.
+
+- Added currentMove state to Game, currentSquares = history[currentMove].
+- jumpTo(nextMove) sets currentMove; handlePlay slices history to currentMove+1 before appending.
+- Eliminated redundant xIsNext state: derived as xIsNext = currentMove % 2 === 0.
+- fully working game with move history, turn alternation, winner display, and time travel.
