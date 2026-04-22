@@ -1,0 +1,6 @@
+- default tels other files that this function is the main function of App.jsx
+- we can use fragments to wrap elements so that the function only returns one element containing everything elements
+- always use { } to render javascriptin jsx
+- props are also passed in { }, we can set it equal to a value 
+- Option + ⌘ + J for console 
+- we can utilize a state to "remember things"
