@@ -57,7 +57,15 @@ function Board({ xIsNext, squares, onPlay }) {
         if (!isAdjacent(selectedSquare, i)) {
           return;
         }
-        // TODO: center square rule (stage 3)
+        // center square rule: if you occupy center, must win or vacate it
+        if (squares[4] === currentPlayer) {
+          const testSquares = squares.slice();
+          testSquares[selectedSquare] = null;
+          testSquares[i] = currentPlayer;
+          if (testSquares[4] === currentPlayer && !calculateWinner(testSquares)) {
+            return;
+          }
+        }
         const nextSquares = squares.slice();
         nextSquares[selectedSquare] = null;
         nextSquares[i] = currentPlayer;

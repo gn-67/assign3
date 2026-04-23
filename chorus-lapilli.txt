@@ -7,7 +7,7 @@ Notes:
 
 Log:
 
-Stage 1 - Phase tracking and movement selection:
+Phase tracking and movement selection:
 - added selectedSquare state to Board for tracking which piece the player wants to move
 - added currentPlayer, pieceCount, and isMovementPhase derived values
 - isMovementPhase is true when current player has 3 pieces on the board -> transitions to diff logic
@@ -17,7 +17,7 @@ Stage 1 - Phase tracking and movement selection:
 - added isSelected prop to Square component for yellow highlight via CSS class
 - added .square.selected CSS rule with yellow (#ffeb3b) background
 
-Stage 2 - Adjacency check:
+Adjacency check:
 - added isAdjacent(from, to) helper function
 - converts board indices to row/col coordinates 
 - two squares are adjacent if both row and column differences are <= 1
