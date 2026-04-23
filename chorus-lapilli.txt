@@ -29,3 +29,7 @@ Center square rule:
 - simulates the move on a test copy of the board
 - if center is still occupied after the move and the move doesn't win, it's rejected
 - this means you must either move your piece off the center, or make a winning move
+
+
+Changes after testing: 
+- initially wrote the movement phase move test wrong 

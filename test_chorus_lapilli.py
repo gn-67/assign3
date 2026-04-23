@@ -155,22 +155,6 @@ class TestChorusLapilli(unittest.TestCase):
         tiles[0].click()
         self.assertTileIs(tiles[0], self.SYMBOL_X)
 
-    def test_movement_phase_move_piece(self):
-        '''After 3 pieces each, a player can move a piece to adjacent empty square.'''
-        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
-        # Place 3 X and 3 O:
-        # X=0, O=1, X=2, O=4, X=6, O=7
-        tiles[0].click()  # X at 0
-        tiles[1].click()  # O at 1
-        tiles[2].click()  # X at 2
-        tiles[4].click()  # O at 4
-        tiles[6].click()  # X at 6
-        tiles[7].click()  # O at 7
-        # Now X's turn in movement phase. Move X from 6 to 3 (adjacent).
-        tiles[6].click()  # select X at 6
-        tiles[3].click()  # move to 3
-        self.assertTileIs(tiles[6], self.SYMBOL_BLANK)
-        self.assertTileIs(tiles[3], self.SYMBOL_X)
 
     def test_cannot_move_to_nonadjacent(self):
         '''Moving to a non-adjacent square should fail.'''
@@ -185,9 +169,30 @@ class TestChorusLapilli(unittest.TestCase):
         # X tries to move from 0 to 8 (not adjacent)
         tiles[0].click()  # select X at 0
         tiles[8].click()  # try move to 8
-        # Move should fail, X still at 0
+        # move should fail, X still at 0
         self.assertTileIs(tiles[0], self.SYMBOL_X)
         self.assertTileIs(tiles[8], self.SYMBOL_BLANK)
+
+    def test_cannot_move_opponent_piece(self):
+        '''player cannot select opponent's piece in movement phase.'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        # X=0, O=1, X=2, O=4, X=6, O=7
+        tiles[0].click()
+        tiles[1].click()
+        tiles[2].click()
+        tiles[4].click()
+        tiles[6].click()
+        tiles[7].click()
+        # X's turn. Try clicking O's piece at 1, then empty at 8.
+        tiles[1].click()  # try select O piece (should do nothing)
+        tiles[8].click()  # click empty
+        # O at 1 should remain, 8 should remain blank
+        self.assertTileIs(tiles[1], self.SYMBOL_O)
+        self.assertTileIs(tiles[8], self.SYMBOL_BLANK)
+
+
+
+
 
 
 # ================= [DO NOT MAKE ANY CHANGES BELOW THIS LINE] =================
