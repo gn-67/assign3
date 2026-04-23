@@ -53,7 +53,10 @@ function Board({ xIsNext, squares, onPlay }) {
         if (squares[i]) {
           return;
         }
-        // TODO: adjacency check (stage 2)
+        // must move to an adjacent square
+        if (!isAdjacent(selectedSquare, i)) {
+          return;
+        }
         // TODO: center square rule (stage 3)
         const nextSquares = squares.slice();
         nextSquares[selectedSquare] = null;
@@ -114,6 +117,16 @@ export default function Game() {
       </div>
     </div>
   );
+}
+
+function isAdjacent(from, to) {
+  const fromRow = Math.floor(from / 3);
+  const fromCol = from % 3;
+  const toRow = Math.floor(to / 3);
+  const toCol = to % 3;
+  const rowDiff = Math.abs(fromRow - toRow);
+  const colDiff = Math.abs(fromCol - toCol);
+  return rowDiff <= 1 && colDiff <= 1;
 }
 
 function calculateWinner(squares) {
