@@ -30,4 +30,10 @@ Center square rule:
 - if center is still occupied after the move and the move doesn't win, it's rejected
 - this means you must either move your piece off the center, or make a winning move
 
-
+Test cases:
+- test_new_board_empty: verifies all 9 tiles start blank on a fresh game
+- test_button_click: verifies clicking top-left tile places an X
+- test_cannot_move_to_nonadjacent: places 3 each, tries moving X from 0 to 8 (not adjacent), checks move is rejected
+- test_cannot_move_opponent_piece: in movement phase, clicks O's piece as X, checks nothing happens
+- test_center_rule_must_vacate: X holds center, tries non-vacating non-winning move, checks it's blocked
+- test_win_in_movement_phase: X holds center, moves center piece to complete top row, checks win
