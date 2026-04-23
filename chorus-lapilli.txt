@@ -1,1 +1,25 @@
+Notes:
 
+- chorus lapilli is a variant of tic-tac-toe from ancient Rome
+- after each player places 3 pieces, they must move existing pieces instead of placing new ones
+- moves must be to adjacent squares (up, down, left, right, or diagonal)
+- if your piece is in the center and you have 3 pieces, you must win or vacate the center
+
+Log:
+
+Stage 1 - Phase tracking and movement selection:
+- added selectedSquare state to Board for tracking which piece the player wants to move
+- added currentPlayer, pieceCount, and isMovementPhase derived values
+- isMovementPhase is true when current player has 3 pieces on the board -> transitions to diff logic
+- placement phase (< 3 pieces): works like tic-tac-toe, click empty square to place
+- movement phase (3 pieces): click own piece to select (yellow highlight), then click destination
+- clicking selected piece again deselects; clicking another own piece switches selection
+- added isSelected prop to Square component for yellow highlight via CSS class
+- added .square.selected CSS rule with yellow (#ffeb3b) background
+
+Stage 2 - Adjacency check:
+- added isAdjacent(from, to) helper function
+- converts board indices to row/col coordinates 
+- two squares are adjacent if both row and column differences are <= 1
+- this covers all 8 directions: up, down, left, right, and 4 diagonals
+- movement phase now rejects moves to non-adjacent squares
