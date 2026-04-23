@@ -190,7 +190,42 @@ class TestChorusLapilli(unittest.TestCase):
         self.assertTileIs(tiles[1], self.SYMBOL_O)
         self.assertTileIs(tiles[8], self.SYMBOL_BLANK)
 
+    def test_center_rule_must_vacate(self):
+        '''if player holds center, must vacate it or win.'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        # X=0, O=3, X=4(center), O=6, X=8, O=7
+        tiles[0].click()  # X at 0
+        tiles[3].click()  # O at 3
+        tiles[4].click()  # X at 4 (center)
+        tiles[6].click()  # O at 6
+        tiles[8].click()  # X at 8
+        tiles[7].click()  # O at 7
+        # X holds center. Try moving X from 0 to 1 (doesn't vacate center, doesn't win).
+        tiles[0].click()  # select X at 0
+        tiles[1].click()  # try move to 1
+        # should fail: X still at 0, 1 still blank
+        self.assertTileIs(tiles[0], self.SYMBOL_X)
+        self.assertTileIs(tiles[1], self.SYMBOL_BLANK)
 
+    def test_win_in_movement_phase(self):
+        '''a player can win by moving a piece into a winning line.'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        # Setup: X=0, O=3, X=4, O=6, X=2, O=7
+        # X has 0,4,2 (top row + center). O has 3,6,7.
+        tiles[0].click()  # X at 0
+        tiles[3].click()  # O at 3
+        tiles[4].click()  # X at 4
+        tiles[6].click()  # O at 6
+        tiles[2].click()  # X at 2
+        tiles[7].click()  # O at 7
+        # X has center. Move X from 4 to 1 to win (0,1,2 top row).
+        tiles[4].click()  # select X at 4
+        tiles[1].click()  # move to 1 -> wins with 0,1,2
+        self.assertTileIs(tiles[1], self.SYMBOL_X)
+        self.assertTileIs(tiles[4], self.SYMBOL_BLANK)
+        # Game over: clicking should do nothing
+        tiles[5].click()
+        self.assertTileIs(tiles[5], self.SYMBOL_BLANK)
 
 
 

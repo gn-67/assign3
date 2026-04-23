@@ -31,5 +31,3 @@ Center square rule:
 - this means you must either move your piece off the center, or make a winning move
 
 
-Changes after testing: 
-- initially wrote the movement phase move test wrong 
