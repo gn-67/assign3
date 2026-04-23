@@ -23,3 +23,9 @@ Adjacency check:
 - two squares are adjacent if both row and column differences are <= 1
 - this covers all 8 directions: up, down, left, right, and 4 diagonals
 - movement phase now rejects moves to non-adjacent squares
+
+Center square rule:
+- if current player occupies center (index 4) during movement phase, move is restricted
+- simulates the move on a test copy of the board
+- if center is still occupied after the move and the move doesn't win, it's rejected
+- this means you must either move your piece off the center, or make a winning move
